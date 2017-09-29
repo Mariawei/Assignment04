@@ -26,6 +26,9 @@ public class Practice4Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
+		item = item.replaceAll("\\p{Punct}|\\d","").trim().toLowerCase().replaceAll("\\s","");
+		
+
 		for (int i = 0; i < item.length(); i++) {
 			stack.push(item.substring(i, i+1));
 			queue.enqueue(item.substring(i, i+1));
@@ -55,12 +58,13 @@ public class Practice4Test {
 			if (queue.empty())
 				grade += 5;
 			System.out.println("[+" + grade + "%] Queue and Stack declared correctly.");
-	
+
 			// First tests: is the queue correct? Is the stack correct?
 			String first = "first";
 			String second = "second";
 			queue.enqueue(first);
 			queue.enqueue(second);
+		
 			if (queue.dequeue() == first && queue.dequeue() == second && queue.empty()) {
 				System.out.println("[+10%] Queue functions appear correct.");
 				grade += 10;
@@ -85,11 +89,16 @@ public class Practice4Test {
 			boolean emptiedEarly = false;
 			for (int i = 0; i < size_of_test; i++) {
 				if ( queue.empty() || stack.empty()) {
+//					System.out.println("queue: " + queue.empty());
+//					System.out.println("stack: " + stack.empty());
 					emptiedEarly = true;
 				}
 				queue.dequeue();
 				stack.pop();
 			}
+		
+			//System.out.println(emptiedEarly);
+		
 			if (queue.empty() && stack.empty() && ! emptiedEarly) {
 				System.out.println("[+10%] Stack and Queue appear to resize correctly.");
 				grade += 10;
@@ -125,6 +134,7 @@ public class Practice4Test {
 			}
 		} catch (Exception e) {
 			// Do nothing
+			e.printStackTrace();
 		} finally {
 			System.out.println("====================");
 			System.out.println("Grade for this assignment: " + grade + "%");
